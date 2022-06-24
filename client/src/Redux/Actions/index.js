@@ -1,177 +1,148 @@
 import Axios from 'axios';
 
-export const ASCENDENTE = 'A-Z';
-export const DESCENDENTE = 'Z-A';
-
-export const POPULATION_ASC = 'POPULATION_ASC';
-export const POPULATION_DES = 'POPULATION_DES';
+import {
+    GET_COUNTRIES,
+    GET_COUNTRY_DETAIL,
+    GET_ACTIVITIES,
+    GET_NAME_COUNTRIES,
+    ORDER_BY_NAME,
+    ORDER_HAB_ASC,
+    ORDER_HAB_DES,
+    ORDER_NAME_ASC,
+    ORDER_NAME_DES,
+    ORDER_BY_POPULATION,
+    FILTER_CONTINENT,
+    FILTER_ACTIVITY,
+    POST_ACTIVITY
+} from './constants.js'
 
 const URL = 'http://localhost:3001';
 
-// ACTION PARA TRAERME TODAS LAS COUNTRIES
-export const getCountries = () => {
+
+
+//ACTION PARA TRAER TODOS LOS PAISES 
+export function getCountries () {
     return async function (dispatch) {
-        return fetch(`${URL}/coutries`) // QUE BUSQUE EN LA URL CORRESPONDIENTE 
-        .then(info => info.json()) // A  LA INFO EN LA URL QUE LA TRANSFORME EN JSON 
-        .then( json => { //QUE DISPARE ESA ACCION, LE PASO EL TYPO Y LA DATA EXTRA DE LO QUE QUIERO QUE HAGA
-            dispatch({
-                type: 'GET_COUNTRIES',
-                payload: json
-            })
+        let res =  await Axios.get(`${URL}/countries`)
+        console.log(res)
+        dispatch({
+            type: GET_COUNTRIES,
+            payload: res.data  // LO QUE ME VA A CARGAR
         })
     }
 }
 
-//ACTION PARA TRAERME LAS COUNTRIES POR NAME 
-export function getCountriesByName (name) {
-    return (dispatch) =>  {
-        return Axios
-        .get(`${URL}/countries?name=${name}`)
-        .then((response) =>{
-            dispatch({
-                type: 'GET_COUNTRY',
-                payload: response.data,
-            });
-
-        })
-        .catch((error) => {
-            alert('Country not found', error)
-        })
-    }
-}
-
-//ACTION PARA TRAERME LA COUNTRY POR ID
-export const getCountryDetail = (id3) => {
+//ACTION PARA TRAERME UN PAIS POR SU NAME
+export function getNameCountries (name) {
     return async function (dispatch) {
         try {
-            const info = await Axios.get(`${URL}/countries/${id3}`);
-            dispatch({
-                type: 'GET_COUNTRY_DETAILS',
-                payload: info.data
-            });
+            let res = await Axios.get(`${URL}/countries?name=${name}`);
+            return dispatch({
+                type: GET_NAME_COUNTRIES,
+                payload: res.data  // ES LO QUE ME DEVUELVE POR RUTA CUANDO ASIGNO NAME
+            })
         } catch (error) {
+            return error;
+        }
+    }
+}
+
+//ACTION PARA TRAERME LAS ACTIVIDADES
+export function getActivities() {
+    return async function(dispatch) {
+       return Axios.get(`${URL}/activities`)
+       .then((response) => {
+        dispatch({
+            type: GET_ACTIVITIES,
+            payload: response.data
+        })
+       })
+    }
+}
+
+
+// ACTION PARA TRAERME UN PAIS SEGUN SU ID DE 3 DIGITOS
+export function getDetailCountry(id3) {
+    return async function (dispatch){
+        try{
+            let res = await Axios.get(`${URL}/countries/${id3}`)
+            return dispatch({
+                type: GET_COUNTRY_DETAIL,
+                payload: res.data
+            })
+        } catch(error) {
             console.log(error)
         }
     }
-}
+} 
 
-//ACTION PARA TRAER TODAS LAS ACTIVIDADES
-export const getActivities = () => {
-    return async (dispatch) => {
-      try {
-        const response = await Axios
-          .get(`${URL}/activities`);
-        dispatch({
-          type: 'GET_ACTIVITIES',
-          payload: response.data,
-        });
-      } catch (error) {
-        return console.error(error);
-      }
-    };
-  }
+//PARA ORDENAR DE A-Z/Z-A
+export function orderByName(order, oCountries) { //PAYLOAD: ES EL VALOR QUE VA A LLEGAR DESDE EL COMPONENTE
+    let countries = [...oCountries]
 
-
-  //ACTION PARA CREAR UNA ACTIVIDAD...
-  export function postActivity (data) {
-    return(dispatch) => {
-        return Axios.post(`${URL}/activity/${data.name}`, data)  //DATA= ES LA QUE SE ENVIA POR BODY A NUESTRO BACKEND
-        .then(response => {
-            dispatch({
-                type: 'POST_ACTIVITY',
-                payload: response
-            })
-        } )
-    }
-  }
-
-
-export function orderCountryByName (order, orderCountry ) {
-    let countries = [...orderCountry]
-
-    countries.sort((a, b) => {
-        var nameA = a.name.toUpperCase();
-        var nameB = b.name.toUpperCase();
-
-        if(order === ASCENDENTE) {
-            return nameA < nameB ? -1 : nameA > nameB ? 1 : 0
+    countries.sort(function (a, b){
+        if(order === ORDER_NAME_ASC) {
+            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
         }
-        if(order === DESCENDENTE) {
-            return nameA > nameB ? -1 : nameA < nameB ? 1 : 0
+        if(order === ORDER_NAME_DES) {
+            return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
         }
     })
-
     return function (dispatch) {
         dispatch({
-            type: 'ORDER_BY_NAME',
+            type: ORDER_BY_NAME,
             payload: countries
         })
     }
 }
 
-export function orderPopulation(order, orderPopulation) {
-    let population = [...orderPopulation];
+export function orderByPopulation(order, oPopulation) {
+    let population = [...oPopulation]
 
-    population.sort((a, b) => {
-        var populationA = parseFloat(a.population)
-        var populationB = parseFloat(b.population)
-
-        if(order === POPULATION_ASC) {
-            return populationA < populationB ? -1 : populationA > populationB ? 1 : 0;
-
+    population.sort(function (a, b) {
+        if(order === ORDER_HAB_ASC) {
+            return a.population < b.population ? -1 : a.population > b.population ? 1 : 0;
         }
-        if(order === POPULATION_DES) {
-            return populationA > populationB ? -1 : populationA < populationB ? 1 : 0;
+        if(order === ORDER_HAB_DES) {
+            return a.population > b.population ? -1 : a.population < b.population ? 1 : 0;
         }
     })
-    return function (dispatch) {
+    return function(dispatch) {
         dispatch({
-            type: 'ORDER_POPULATION',
+            type: ORDER_BY_POPULATION,
             payload: population
         })
     }
 }
 
 
-//FILTRO PARA CONTINENT
-export const filterByPopulation = (payload)  => {
+export function filterByContinent(payload) {
+   return {
+    type: FILTER_CONTINENT,
+    payload
+   }
+}
+
+
+export function filterByActivity(payload){
     return {
-        type: 'FILTER_BY_POPULATION',
-        payload: payload
-    }
-}
-
-
-//FILTRO POR ACTIVIDAD 
-export const filterByActivity = (payload) => {
-    return  {
-        type: 'FILTER_BY_ACTIVITY',
-        payload
-    }
-}
-
-//FILTRO POR DIFICULTAD
-export const filterByDifficulty = (payload) => {
-    return{
-        type: 'FILTER_BY_DIFFICULTY',
-        payload: parseInt(payload)
-    }
-}
-
-//FILTRO POR TEMPORADA
-export const filterBySeason = (payload) => {
-    return {
-        type: 'FILTER_BY_SEASON',
+        type: FILTER_ACTIVITY,
         payload
     }
 }
 
 
-//FILTRO POR AREA 
-export const filterByArea = (payload) => {
-    return {
-        type: 'FILTER_BY_AREA',
-        payload
+//ACTION DONDE SE VA A CREAR UNA ACTIVIDAD
+export function postActivity (payload) { // ME TRAE TODO LO QUE LLENA EL USER
+   console.log('me rompi', payload)
+    return async function (dispatch) {
+
+        let res = await Axios.post(`${URL}/activities`, payload)
+       
+        return dispatch({
+            type: POST_ACTIVITY,
+            payload: res
+        })
+
     }
 }
-

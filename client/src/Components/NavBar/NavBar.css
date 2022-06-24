@@ -1,0 +1,13 @@
+.cosas {
+    float: right;
+    margin-top: 15%;
+    margin-right: 20%;
+    font-size: 30%;
+    color: white;
+    font-family: "Rancho", cursive;
+    transition-duration: 0.5s;
+}
+
+.crear {
+    color: white;
+}
