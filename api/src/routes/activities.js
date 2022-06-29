@@ -5,7 +5,7 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     const {name, difficulty, duration, season, idCountry} = req.body;
-    
+    console.log(idCountry)
     try {
         
     const created = await Activities.create({

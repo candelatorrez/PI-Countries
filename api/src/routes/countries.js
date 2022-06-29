@@ -46,29 +46,38 @@ router.get('/', async (req, res) => {
     
     await load();
     try {
+
         if(name){
+            let array = [];
+
             let country = await Country.findOne({
                 where: {
                     name: {
                         [Op.iLike]: `%${name}`,
                     },
-                    include: {
-                        model: Activities,
-                        attributes: ["name", "difficulty", "duration", "season"],
-                        through: {attributes: []}
-                    }
-                }
+                },
+                include: [{
+                    model: Activities,
+                    attributes: ["id", "name"],
+                    through: {attributes: []},   
+                    required: false,
+                }],
             })
             if (country) {
-            res.json(country);
+                array.push(country)
+
+            res.json(array);
          } else {
                 res.send("Pais no encontrado")
             }
         } 
         let countries = await Country.findAll({
-            include: {
-                model: Activities
-            }
+            include: [{
+                model: Activities,
+                attributes: ["id", "name"],
+                through: {attributes: []},   
+                required: false,
+            }],
         });
         res.json(countries)
     } catch (error) {
@@ -84,8 +93,6 @@ router.get('/:idCountry', async(req, res)=>{
           {
               include: {
                  model: Activities,
-                 attributes: ["name", "difficulty", "duration", "season"],
-                 through: {attributes: []}
                 }
           })
           if(getCountry !== null){
