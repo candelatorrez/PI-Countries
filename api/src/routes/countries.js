@@ -51,6 +51,11 @@ router.get('/', async (req, res) => {
                 where: {
                     name: {
                         [Op.iLike]: `%${name}`,
+                    },
+                    include: {
+                        model: Activities,
+                        attributes: ["name", "difficulty", "duration", "season"],
+                        through: {attributes: []}
                     }
                 }
             })
@@ -60,7 +65,11 @@ router.get('/', async (req, res) => {
                 res.send("Pais no encontrado")
             }
         } 
-        let countries = await Country.findAll();
+        let countries = await Country.findAll({
+            include: {
+                model: Activities
+            }
+        });
         res.json(countries)
     } catch (error) {
         console.log(error)
@@ -68,29 +77,26 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/:idCountry', async (req, res) => {
-    const {idCountry} = req.params;
-
-    try{
-        const country = await Country.findOne({
-            where: {
-                id3: idCountry.toUpperCase()
-            },
-            include: [{
-                model: Activities,
-                attributes: ['id','name', 'difficulty', 'duration', 'season'],
-                through: { attributes: []}
-            }]
-        })
-        if(country) {
-            return res.status(200).json(country)
-        } else {
-            return res.status(404).send('Pais no encontrado')
-        }
-    } catch(error){
-        console.log(error)
-    }
-})
+router.get('/:idCountry', async(req, res)=>{
+    const {idCountry} = req.params
+     try{
+          const getCountry = await Country.findByPk(idCountry.toUpperCase(), 
+          {
+              include: {
+                 model: Activities,
+                 attributes: ["name", "difficulty", "duration", "season"],
+                 through: {attributes: []}
+                }
+          })
+          if(getCountry !== null){
+            return res.send(getCountry)
+          }else{
+            res.send('Pais no encontrado')
+         }
+      }catch(error){
+          console.log(error)
+      }
+ })
 
 
 module.exports = router; 

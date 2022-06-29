@@ -17,13 +17,13 @@ export default function CreateActivity(){
         name: '',
         difficulty:'',
         duration:'',
-        season: [],
-        countries: []
+        season: '',
+        idCountry: [],
     })
 
     function validate(){
         let error = {};
-        if(!input.name || !input.difficulty || !input.duration || !input.season || !input.countries) {
+        if(!input.name || !input.difficulty || !input.duration || !input.season || !input.idCountry) {
             error.name = 'Los campos deben estar completos'
         }
         return error;
@@ -31,6 +31,7 @@ export default function CreateActivity(){
 
     useEffect(() => {
         dispatch(getCountries())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function handleChange(e) {
@@ -48,8 +49,7 @@ export default function CreateActivity(){
         if(e.target.checked){
             setInput({
                 ...input,
-                season: [...input.season, e.target.value]
-            })
+                season:  e.target.value            })
             setError(validate({
                 ...input,
                 [e.target.name] : e.target.value
@@ -60,14 +60,14 @@ export default function CreateActivity(){
     function handleSelect(e) {
        setInput({
         ...input,
-        countries: [...input.countries, e.target.value]
+        idCountry: [...input.idCountry, e.target.value]
        })
     }
 
     function handleDelete(el) {
         setInput({
             ...input,
-            countries: input.countries.filter(country => country !== el) //filtra por todo lo que no sea element, devuelve todo sin el mismo
+            idCountry: input.idCountry.filter(country => country !== el) //filtra por todo lo que no sea element, devuelve todo sin el mismo
         })
     }
 
@@ -80,8 +80,8 @@ export default function CreateActivity(){
             name: '',
             difficulty:'',
             duration: '',
-            season: [],
-            countries: []
+            season: '',
+            idCountry: []
         })
     }
 
@@ -92,14 +92,14 @@ export default function CreateActivity(){
                 <form onSubmit={(e) => handleSubmit(e)} >
                     <div>
                         <label>Nombre:</label>
-                        <input type='text' value={input.name} name='name' placeholder='Nombre de la actividad' onChange={handleChange} />
+                        <input type='text' value={input.name} name='name' placeholder='Nombre de la actividad' onChange={e => handleChange(e)} />
                         {error.name && (
                             <p>{error.name}</p>
                         )}
                     </div>
                     <div>
                         <label>Dificultad:</label>
-                        <select onChange={handleChange} name='difficulty' value={input.difficulty}>
+                        <select onChange={(e) => handleChange(e)} name='difficulty' value={input.difficulty}>
                             <option hidden >Seleccionar dificultad</option>
                             <option value={1}> 1 </option>
                             <option value={2}> 2 </option>
@@ -113,7 +113,7 @@ export default function CreateActivity(){
                     </div>
                     <div>
                         <label>Duración en minutos</label>
-                        <input type='number' min='10' max='300' value={input.duration} onChange={handleChange} name='duration' placeholder='Tiempo...'/>
+                        <input type='number' min='10' max='300' value={input.duration} onChange={(e) => handleChange(e)} name='duration' placeholder='Tiempo...'/>
                         {error.name && (
                             <p>{error.name}</p>
                         )}
@@ -121,10 +121,10 @@ export default function CreateActivity(){
                     <div>
                         <label>Temporada:</label>
                         <div>
-                            <label><input type='checkbox' name='Verano' value='Verano' onChange={e => handleCheck(e)}/> Verano </label>
-                            <label><input type='checkbox' name='Otoño' value='Otoño' onChange={e => handleCheck(e)}/> Otoño </label>
-                            <label><input type='checkbox' name='Invierno' value= 'Invierno' onChange={e => handleCheck(e)}/> Invierno </label>
-                            <label><input type='checkbox' name='Primavera' value='Primavera' onChange={e => handleCheck(e)}/> Primavera </label>
+                            <label><input type='checkbox' name='Verano' value='Summer' onChange={e => handleCheck(e)}/> Summer </label>
+                            <label><input type='checkbox' name='Otoño' value='Autumn' onChange={e => handleCheck(e)}/> Autumn </label>
+                            <label><input type='checkbox' name='Invierno' value= 'Winter' onChange={e => handleCheck(e)}/> Winter </label>
+                            <label><input type='checkbox' name='Primavera' value='Spring' onChange={e => handleCheck(e)}/> Spring </label>
                             {error.name && (
                                 <p>{error.name}</p>
                             )}
@@ -144,8 +144,8 @@ export default function CreateActivity(){
                             <p>{error.name}</p>
                         )}
                         <div>
-                            {input.countries.map((el, index)=> 
-                            <div key={index}>
+                            {input.idCountry.map((el)=> 
+                            <div key={el.id3}>
                                 <h4>{el}</h4>
                                 <button type='button' onClick={() => handleDelete(el)}>X</button>
                             </div>    
@@ -158,7 +158,7 @@ export default function CreateActivity(){
                         !input.difficulty ||
                         !input.duration ||
                         !input.season || 
-                        !input.countries
+                        !input.idCountry
                     } />
                 </form>
                 <div>

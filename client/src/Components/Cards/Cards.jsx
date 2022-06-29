@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux';
-import { Link } from "react-router-dom";
 import {getCountries, getNameCountries} from '../../Redux/Actions/index';
+
+
 import Card from '../Card/Card.jsx';
 
 export function Cards(props) {
+
     // Seteamos un estado para nuestro paginado...
     const [numPage, setNumPage] = useState(1);
 
@@ -16,6 +18,7 @@ export function Cards(props) {
 
     useEffect(() => {
         props.getCountries()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Aplicamos unas condiciones para utilizar bien nuestro paginado.
@@ -38,7 +41,9 @@ export function Cards(props) {
                             id3={country.id3}
                             name={country.name}
                             flags={country.flags}
-                            subregion={country.subregion} />
+                            continent={country.continent}
+                            
+                            />
                       
                     
                     </div>) : (<p>Pais No Encontrado</p>)}
@@ -66,7 +71,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getCountries: () => dispatch(getCountries()),
-        getNameCountries: name => dispatch(getNameCountries(name))
+        getNameCountries: name => dispatch(getNameCountries(name)),
+       
     }
 }
 

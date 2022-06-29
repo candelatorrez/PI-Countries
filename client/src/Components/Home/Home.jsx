@@ -1,20 +1,16 @@
 import React from "react";
-import './Home.css';
-
-import NavBar from "../NavBar/NavBar";
-import Cards from "../Cards/Cards";
-
+import Cards from "../Cards/Cards.jsx"
+import NavBar from "../NavBar/NavBar.jsx";
 
 export default function Home() {
     return (
-        <div className="home">
+        <div>
             <div>
                 <NavBar />
             </div>
-            <div className="cards">
+            <div>
                 <Cards />
             </div>
-            
         </div>
     )
 }

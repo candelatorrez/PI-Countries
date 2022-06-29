@@ -1,33 +1,37 @@
-import React, {useState} from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+
+
 import { getNameCountries } from "../../Redux/Actions";
 
-
-
 export default function SearchBar() {
-    const [name, setName] = useState('');
     const dispatch = useDispatch();
 
-    function handleSubmit(e){
-        e.preventDefault();
-        if(name.length === 0) {
-            return alert('invalid name')
-        } 
-        dispatch(getNameCountries(name))
-        setName('')
+    const [input, setInput] = useState('');
+
+    function handleOnChange(name){
+        setInput(name)
     }
 
-    function handleInputChange(e){
+    function handleOnSubmit(e) {
         e.preventDefault();
-        setName(e.target.value)
+        dispatch(getNameCountries(input))
+        setInput('');
     }
 
-    return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type='text' placeholder='Search country...' onChange={handleInputChange} value={name} />
-                <button type='submit' value=''>Search</button>
-            </form>
-        </div>
+    return (
+        <form className="container" onSubmit={(e) => handleOnSubmit(e)}>           
+                <input 
+                    onChange={(e) => handleOnChange(e.target.value)}
+                    type="text"
+                    name="searchCountry"
+                    id="searchCountry"
+                    placeholder="Search Country..."
+                    value={input}
+                    />
+                    <button className="btn" type="submit">SEARCH</button>
+           
+        </form>
     )
 }

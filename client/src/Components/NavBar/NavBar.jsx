@@ -1,12 +1,9 @@
 import React from "react";
 
 import {Link} from 'react-router-dom';
+import FilterAndOrder from "../FilterAndOrder/FilterAndOrder.jsx";
+import SearchBar from "../SearchBar/SearchBar";
 
-
-
-import Filters from '../Filters/Filters.jsx';
-import Order from "../Orders/Order.jsx";
-import SearchBar from '../SearchBar/SearchBar.jsx';
 
 
 export default function NavBar() {
@@ -19,16 +16,13 @@ export default function NavBar() {
                 <Link to={'/activities'}>
                     <h2 className="crear">Crear Actividad</h2>
                 </Link>
+                <div>
+                <FilterAndOrder />  
+                </div>
+                <div>
+                    <SearchBar /> 
+                </div>
             </nav>
-            <div>
-                <Order />
-            </div>
-            <div>
-                <Filters />
-            </div>
-            <div>
-                <SearchBar />
-            </div>
         </div>
     )
 }

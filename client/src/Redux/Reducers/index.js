@@ -6,108 +6,85 @@ import {
     GET_NAME_COUNTRIES,
     ORDER_BY_NAME,
     ORDER_BY_POPULATION,
-    FILTER_CONTINENT,
+    POST_ACTIVITY,
     FILTER_ACTIVITY,
-    POST_ACTIVITY
+    FILTER_CONTINENT
 } from '../Actions/constants.js';
 
-import { filterByActivity } from '../Actions/index.js';
+
 
 const initialState = {
     countries: [],
     countryDetail: [],
-    activities: [],
+    activity: [],
     allCountries: [],
 
-    filterOrder: {
-    byActivity: 'all'
 }
 
-
-
-}
-
-
-function rootReducer(state = initialState, {type, payload}) {
-
-    switch(type){
-        case GET_COUNTRIES:
-            return {                    //HACE UNA COPIA DEL STATE, Y DESPUES A COUNTRIES LE PASA LO QUE ENCUENTRE EN PAYLOAD(JSON.DATA)
+export default function rootReducer(state = initialState, {type, payload}) {
+    switch(type) {
+        case GET_COUNTRIES: 
+            return {
                 ...state,
                 countries: payload,
-                allCountries: payload         //MANDA TODO LO QUE LE TRAIGA LA ACTION GET_COUNTRIES
+                allCountries: payload
             }
         
-        case GET_NAME_COUNTRIES: {
-            let currentCountries = payload.data;
-
-            if(payload.filterOrder.byActivity.length > 0) {
-                currentCountries = filterByActivity(
-                    currentCountries,
-                    payload.byActivity
-                )
-            }
+        case GET_NAME_COUNTRIES: 
             return {
                 ...state,
-                filterOrder: payload.filterOrder
+                countries:  payload
             }
-        }
-        case GET_ACTIVITIES: {
+        
+        case GET_COUNTRY_DETAIL: 
             return {
                 ...state,
-                activities: [...payload]
-            }
-        }
-        case POST_ACTIVITY: {
-            return {
-                ...state   //SOLO ME TRAE EL ESTADO COMO ESTÁ
-            }
-        }
-        case GET_COUNTRY_DETAIL:
-            return {
-                ...state, 
                 countryDetail: payload
             }
-        case FILTER_ACTIVITY:
-            const countriesAll = state.allCountries
-            let stateActivity = []
         
-            for (let country of countriesAll) {
-                if(country.activities.length !== 0){
-                    for(let el of country.activities){
-                        if(el.name === payload) {
-                            stateActivity = [...stateActivity, country]
-                        }
-                    }
-                }
-            }
+        case GET_ACTIVITIES: 
             return {
                 ...state,
-                countries: stateActivity
+                activity:payload
+            }
+        
+        case POST_ACTIVITY: 
+            return {
+                ...state,
+                activity: [...state.activity, payload]
+
             }
         case ORDER_BY_NAME:
+           return {
+            ...state,
+            countries: payload
+           }
+        case ORDER_BY_POPULATION: 
             return {
                 ...state,
                 countries: payload
             }
-        case ORDER_BY_POPULATION:
-            return {
-                ...state,
-                countries: payload
-            }
-        case FILTER_CONTINENT: //EVITO FILTRAR SOBRE FILTRADITOS 
+        case FILTER_ACTIVITY:
             if(state.countries !== state.allCountries){
                 state.countries = state.allCountries
             }
-            const filterCountries = state.countries.filter(c => c.continent === payload)
-            return {
-                ...state, 
-                countries: filterCountries
-            }
+        
+        return {
+            ...state,
+            countries: state.countries.filter(c => c.activities.some(a => a.name === payload))
+           }
+        case FILTER_CONTINENT: //EVITO FILTRAR SOBRE FILTRADITOS 
+        if(state.countries !== state.allCountries){
+            state.countries = state.allCountries
+        }
+        const filterCountries = state.countries.filter(c => c.continent === payload)
+        return {
+            ...state, 
+            countries: filterCountries
+        }
+
         default: 
         return state; 
+
     }
 }
-
-
-export default rootReducer; 

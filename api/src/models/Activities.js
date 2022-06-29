@@ -6,15 +6,15 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
         },
-        difficulty: { 
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-              min: 1,
-              max: 5,
-              isEven(value) {
-                if(value < 1 || value > 5) {
-                  throw new Error('Solo valores entre 1 y 5!')
+    difficulty: { 
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+        min: 1,
+        max: 5,
+          isEven(value) {
+              if(value < 1 || value > 5) {
+                throw new Error('Solo valores entre 1 y 5!')
                 }
               }
             }
@@ -24,8 +24,7 @@ module.exports = (sequelize) => {
         allowNull: true
     },
     season: {
-        type: DataTypes.ENUM('Verano', 'Otoño', 'Invierno', 'Primavera'),
-        allowNull: true
+        type: DataTypes.ENUM("Autumn", "Winter", "Summer", "Spring"),
     }
     })
 }

@@ -6,10 +6,10 @@ import {
     GET_ACTIVITIES,
     GET_NAME_COUNTRIES,
     ORDER_BY_NAME,
-    ORDER_HAB_ASC,
-    ORDER_HAB_DES,
     ORDER_NAME_ASC,
     ORDER_NAME_DES,
+    ORDER_HAB_ASC,
+    ORDER_HAB_DES,
     ORDER_BY_POPULATION,
     FILTER_CONTINENT,
     FILTER_ACTIVITY,
@@ -24,7 +24,6 @@ const URL = 'http://localhost:3001';
 export function getCountries () {
     return async function (dispatch) {
         let res =  await Axios.get(`${URL}/countries`)
-        console.log(res)
         dispatch({
             type: GET_COUNTRIES,
             payload: res.data  // LO QUE ME VA A CARGAR
@@ -76,13 +75,27 @@ export function getDetailCountry(id3) {
     }
 } 
 
+export function filterContinent(payload) {
+    return {
+        type: FILTER_CONTINENT,
+        payload
+    }
+}
+
+export function filterActivity(payload) {
+    return{
+        type: FILTER_ACTIVITY,
+        payload
+    }
+}
+
 //PARA ORDENAR DE A-Z/Z-A
 export function orderByName(order, oCountries) { //PAYLOAD: ES EL VALOR QUE VA A LLEGAR DESDE EL COMPONENTE
     let countries = [...oCountries]
 
     countries.sort(function (a, b){
         if(order === ORDER_NAME_ASC) {
-            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+            return a.name < b.name ?  -1 : a.name > b.name ? 1 : 0;
         }
         if(order === ORDER_NAME_DES) {
             return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
@@ -100,10 +113,10 @@ export function orderByPopulation(order, oPopulation) {
     let population = [...oPopulation]
 
     population.sort(function (a, b) {
-        if(order === ORDER_HAB_ASC) {
+        if(order === ORDER_HAB_DES) {
             return a.population < b.population ? -1 : a.population > b.population ? 1 : 0;
         }
-        if(order === ORDER_HAB_DES) {
+        if(order === ORDER_HAB_ASC) {
             return a.population > b.population ? -1 : a.population < b.population ? 1 : 0;
         }
     })
@@ -113,23 +126,11 @@ export function orderByPopulation(order, oPopulation) {
             payload: population
         })
     }
+    
 }
 
 
-export function filterByContinent(payload) {
-   return {
-    type: FILTER_CONTINENT,
-    payload
-   }
-}
 
-
-export function filterByActivity(payload){
-    return {
-        type: FILTER_ACTIVITY,
-        payload
-    }
-}
 
 
 //ACTION DONDE SE VA A CREAR UNA ACTIVIDAD

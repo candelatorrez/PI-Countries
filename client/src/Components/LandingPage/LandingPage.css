@@ -1,4 +1,4 @@
-  .button {
+.button {
     min-width: 300px;
     min-height: 60px;
     font-size: 22px;
@@ -75,3 +75,5 @@
       opacity: 0;
     }
   }
+
+  
