@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
-
+import "./SearchBar.css";
 
 import { getNameCountries } from "../../Redux/Actions";
 
@@ -21,7 +21,8 @@ export default function SearchBar() {
     }
 
     return (
-        <form className="container" onSubmit={(e) => handleOnSubmit(e)}>           
+        <div className="form">
+        <form className="containerForm" onSubmit={(e) => handleOnSubmit(e)}>           
                 <input 
                     onChange={(e) => handleOnChange(e.target.value)}
                     type="text"
@@ -33,5 +34,6 @@ export default function SearchBar() {
                     <button className="btn" type="submit">SEARCH</button>
            
         </form>
+        </div>
     )
 }

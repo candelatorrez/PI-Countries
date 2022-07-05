@@ -13,8 +13,7 @@ export default function Card(props) {
             <div>
                 <div className="info">
                     <h2>{props.name}</h2>
-                    <h2>{props.id3}</h2>
-                    <h3>{props.continent}</h3>
+                    <h3>{props.id3}</h3>
                 </div>
             </div>
             </Link>

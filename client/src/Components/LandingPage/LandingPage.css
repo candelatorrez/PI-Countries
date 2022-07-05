@@ -76,4 +76,44 @@
     }
   }
 
+  .tituloLanding {
+    position: relative;
+    display: flex;
+    margin-left: 41%;
+    margin-right: 44%;
+    background: linear-gradient(rgba(0, 0, 0, 0.737), rgba(113, 39, 39, 0.699));
+    width: fit-content;
+    border-radius: 25px;
+    left: -170px;
+    margin-bottom: -100px;
+    margin-top: 60px;
+  }
+ 
+  .countriesApp {
+    font-size: 90px;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: 25px;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 5px 4px 80px rgb(0, 0, 0);
+    font-weight: 600;
+
+    background: url('https://static.nationalgeographic.es/files/styles/image_3200/public/02-map-day-launch.adapt_.1900.1.jpg') repeat-y;
+    background-clip: text;
+ 
+
+    -webkit-text-fill-color: transparent;
+    animation: aitf 80s linear infinite;
+    
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+
+
+  }
   
+
+  @keyframes aitf {
+    0% {background-position: 0% 50%;}
+    100% {background-position: 100% 50% ;}
+  }

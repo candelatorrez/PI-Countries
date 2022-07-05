@@ -1,0 +1,178 @@
+.createActivity {
+    background: linear-gradient(rgba(0, 0, 0, 0.707), rgba(41, 23, 142, 0.663));
+    width: 40%;
+    height: 100%;
+    margin-left: 30%;
+    border-radius: 2%;
+}
+
+.tituloActividad {
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 2px;
+    font-size: 60px;
+    color: rgb(247, 247, 247);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    animation: moves linear 4000ms infinite;
+}
+
+@keyframes moves {
+    0% {
+        text-shadow:
+        2px -2px 0 #da7406,
+        3px -3px 0 #da7406,
+        2px -2px 0 #da7406,
+        1px -1px 0 #da7406,
+        -2px 2px 0 black,
+        -3px 3px 0 black,
+        -2px 2px 0 black,
+        -1px 1px 0 #13f1fc;
+         }
+    25% {
+        text-shadow:
+        -2px -2px 0 black,
+        -3px -3px 0 black,
+        -2px -2px 0 black,
+        -1px -1px 0 #13f1fc,
+        2px 2px 0 #da7406,
+        3px 3px 0 #da7406,
+        2px 2px 0 #da7406,
+        1px 1px 0 #da7406;
+        }
+    50% {
+        text-shadow:
+        -2px 2px 0 #da7406,
+        -3px 3px 0 #da7406,
+        -2px 2px 0 #da7406,
+        -1px 1px 0 #da7406,
+        2px -2px 0 #13f1fc,
+        3px -3px 0 black,
+        2px -2px 0 black,
+        1px -1px 0 black;
+        }
+    75% {
+        text-shadow:
+        2px 2px 0 black,
+        3px 3px 0 black,
+        2px 2px 0 #13f1fc,
+        1px 1px 0 #13f1fc,
+        -2px -2px 0 #da7406,
+        -3px -3px 0 #da7406,
+        -2px -2px 0 #da7406,
+        -2px -2px 0 #da7406,
+        -1px -1px 0 #da7406;
+         }
+    100% {
+        text-shadow:
+        2px -2px 0 #da7406,
+        3px -3px 0 #da7406,
+        2px -2px 0 #da7406,
+        1px -1px 0 #da7406,
+        -2px 2px 0 black,
+        -3px 3px 0 black,
+        -2px 2px 0  black,
+        -1px 1px 0 black;
+        }
+        
+}
+
+.warning{
+    color: red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 2px 2px black;
+    
+}
+
+.input {
+    outline: none;
+}
+
+label {
+    margin: 7px;
+    display: inline-block;
+    text-indent: -15px;
+    color: wheat;
+    outline: none;
+    margin-bottom: 6%;
+}
+
+#verano {
+    margin-right: 2%;
+}
+#otoño{
+    margin-right: 2%;
+}
+#invierno{
+    margin-right: 2%;
+}
+
+#durationAct {
+    width: 30%;
+    background: rgba(81, 36, 81, 0.593);
+}
+
+#dif {
+    color: rgba(245, 222, 179, 0.436);
+    background: rgba(81, 36, 81, 0.593);
+}
+
+.nameAct {
+    background: rgba(81, 36, 81, 0.593);
+}
+
+.selectCountry{
+    background: rgba(81, 36, 81, 0.593);
+    color: rgba(245, 222, 179, 0.436);
+}
+
+.btnBack {
+    background: rgb(98, 31, 98);
+    width: 15%;
+    margin: 10%;
+    padding: 2%;
+    font-family: "Merienda";
+    border: none;
+    border-radius: 10px;
+    color: blanchedalmond;
+    text-shadow: 1px 1px black;
+    box-shadow: 0 10px 10px 0 rgb(173, 151, 151);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.btnBack:hover {
+    transform: translateY(-3%);
+    letter-spacing: 5px;
+}
+
+.submitAct {
+    background: wheat;
+    border-radius: 10px;
+    color: black;
+    letter-spacing: 2px;
+    box-shadow: 4px 4px black;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.submitAct:hover{
+    transform: translateY(-3%);
+    letter-spacing: 4px;
+}
+
+.idpais {
+    color: wheat;
+    font-size: 20px;
+    text-shadow: 2px 2px black;
+}
+
+.btnX{
+    background: black;
+    box-shadow: 0 2px 2px 0 wheat;
+    margin-bottom: 10%;
+    color: red;
+    text-decoration: bold;
+}
+
+.btnX:hover {
+    font-size: 16px;
+    transform: translateY(-3%);
+}

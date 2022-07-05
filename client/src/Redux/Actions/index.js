@@ -16,14 +16,14 @@ import {
     POST_ACTIVITY
 } from './constants.js'
 
-const URL = 'http://localhost:3001';
+
 
 
 
 //ACTION PARA TRAER TODOS LOS PAISES 
 export function getCountries () {
     return async function (dispatch) {
-        let res =  await Axios.get(`${URL}/countries`)
+        let res =  await Axios.get('/countries')
         dispatch({
             type: GET_COUNTRIES,
             payload: res.data  // LO QUE ME VA A CARGAR
@@ -35,7 +35,7 @@ export function getCountries () {
 export function getNameCountries (name) {
     return async function (dispatch) {
         try {
-            let res = await Axios.get(`${URL}/countries?name=${name}`);
+            let res = await Axios.get(`/countries?name=${name}`);
             return dispatch({
                 type: GET_NAME_COUNTRIES,
                 payload: res.data  // ES LO QUE ME DEVUELVE POR RUTA CUANDO ASIGNO NAME
@@ -49,7 +49,7 @@ export function getNameCountries (name) {
 //ACTION PARA TRAERME LAS ACTIVIDADES
 export function getActivities() {
     return async function(dispatch) {
-       return Axios.get(`${URL}/activities`)
+       return Axios.get('/activities')
        .then((response) => {
         dispatch({
             type: GET_ACTIVITIES,
@@ -64,7 +64,7 @@ export function getActivities() {
 export function getDetailCountry(id3) {
     return async function (dispatch){
         try{
-            let res = await Axios.get(`${URL}/countries/${id3}`)
+            let res = await Axios.get(`/countries/${id3}`)
             return dispatch({
                 type: GET_COUNTRY_DETAIL,
                 payload: res.data
@@ -100,6 +100,7 @@ export function orderByName(order, oCountries) { //PAYLOAD: ES EL VALOR QUE VA A
         if(order === ORDER_NAME_DES) {
             return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
         }
+       
     })
     return function (dispatch) {
         dispatch({
@@ -119,6 +120,7 @@ export function orderByPopulation(order, oPopulation) {
         if(order === ORDER_HAB_ASC) {
             return a.population > b.population ? -1 : a.population < b.population ? 1 : 0;
         }
+        
     })
     return function(dispatch) {
         dispatch({
@@ -138,7 +140,7 @@ export function postActivity (payload) { // ME TRAE TODO LO QUE LLENA EL USER
    console.log('me rompi', payload)
     return async function (dispatch) {
 
-        let res = await Axios.post(`${URL}/activities`, payload)
+        let res = await Axios.post('/activities', payload)
        
         return dispatch({
             type: POST_ACTIVITY,

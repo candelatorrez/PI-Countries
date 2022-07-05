@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    margin-top: 30px;
+    
+}
+
+
+
+.number {
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: 5px;
+}
+
+.pages {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(rgba(22, 10, 70, 0.726), black);
+    margin-top: 25px;
+}
+
+.btn1{
+    background-color: rgb(255, 132, 0);
+}
+
+.btn1:hover {
+    box-shadow: 0 5px 5px 0 rgba(32, 42, 219, 0.774);
+    transition-duration: 0.5s;
+}
+
+.btn2{
+    background-color: rgb(255, 132, 0);
+}
+
+.btn2:hover {
+    box-shadow: 0 5px 5px 0 rgba(32, 42, 219, 0.774);
+    transition-duration: 0.5s;
+}

@@ -2,14 +2,14 @@ import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux';
 import {getCountries, getNameCountries} from '../../Redux/Actions/index';
 
-
+import "./Cards.css";
 import Card from '../Card/Card.jsx';
 
 export function Cards(props) {
 
     // Seteamos un estado para nuestro paginado...
     const [numPage, setNumPage] = useState(1);
-
+    
     const group = 10;
     const finalPage = numPage * group;
     const initialPage = finalPage - group;
@@ -34,7 +34,7 @@ export function Cards(props) {
     // Renredizamos nuestras Countries.
     return (
         <div>
-            <div>
+            <div className="container">
                 {countries ? countries.map(country =>
                     <div className="cartita" key={country.id3}>
                             <Card
@@ -49,10 +49,10 @@ export function Cards(props) {
                     </div>) : (<p>Pais No Encontrado</p>)}
 
             </div>
-            <div>
-                <button onClick={() => setNumPage(numPage - 1)}>◀</button>
+            <div className="pages">
+                <button className="btn1" onClick={() => setNumPage(numPage - 1)}>◀</button>
                 <h3 className='number'>Page: {numPage}</h3>
-                <button onClick={() => setNumPage(numPage + 1)}>▶</button>
+                <button className="btn2" onClick={() => setNumPage(numPage + 1)}>▶</button>
             </div>
         </div>
     )

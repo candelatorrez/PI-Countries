@@ -1,0 +1,60 @@
+.flag {
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    max-width: 380px;
+    max-height: 270px;
+}
+
+.flag:hover {filter: opacity(.5);}
+
+
+#bandera {
+  width: 250px;
+  height: 160px;
+  margin-top: 15px;
+  box-shadow: 0 5px 10px 0 black;
+  border-radius: 5px;
+}
+
+.containerCard {
+  background:  linear-gradient(90deg, rgba(51, 4, 4, 0.59) 0%, rgba(250, 142, 26, 0.53) 100%);
+  border-radius: 15px;
+  width: 400px;
+  height: 300px;
+  margin-top: 30px;
+  transition: all 0.3s ease-in-out 0s;
+
+}
+
+.containerCard:hover{
+  transform: translateY(-3%);
+  transition-duration: 0.5s;
+  box-shadow:0 10px 15px 0 rgba(251, 197, 81, 0.808);
+  letter-spacing: 4px;
+}
+
+.linkCard{
+  text-decoration: none;
+}
+
+
+
+.info
+h2{
+  margin-top: 30px;
+  letter-spacing: 1px;
+  font-size: 20px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: antiquewhite;
+}
+
+.info 
+h3 {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+  color: rgb(245, 222, 78);
+}
+

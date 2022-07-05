@@ -24,7 +24,7 @@ export default function CreateActivity(){
     function validate(){
         let error = {};
         if(!input.name || !input.difficulty || !input.duration || !input.season || !input.idCountry) {
-            error.name = 'Los campos deben estar completos'
+            error.name = <p className="warning">'All fields are required!'</p>
         }
         return error;
     }
@@ -86,54 +86,54 @@ export default function CreateActivity(){
     }
 
     return(
-        <div>
-            <h1>CREA UNA ACTIVIDAD</h1>
+        <div className="createActivity">
+            <h1 className="tituloActividad">CREATE ACTIVITY</h1>
             <div>
-                <form onSubmit={(e) => handleSubmit(e)} >
+                <form  onSubmit={(e) => handleSubmit(e)} >
                     <div>
-                        <label>Nombre:</label>
-                        <input type='text' value={input.name} name='name' placeholder='Nombre de la actividad' onChange={e => handleChange(e)} />
+                        <label id="label1">Name: </label>
+                        <input  className="nameAct" type='text' value={input.name} name='name' placeholder='Name of the activity...' onChange={e => handleChange(e)} />
                         {error.name && (
                             <p>{error.name}</p>
                         )}
                     </div>
                     <div>
-                        <label>Dificultad:</label>
-                        <select onChange={(e) => handleChange(e)} name='difficulty' value={input.difficulty}>
-                            <option hidden >Seleccionar dificultad</option>
-                            <option value={1}> 1 </option>
-                            <option value={2}> 2 </option>
-                            <option value={3}> 3 </option>
-                            <option value={4}> 4 </option>
-                            <option value={5}> 5 </option>
+                        <label id="label2">Difficulty: </label>
+                        <select id="dif" onChange={(e) => handleChange(e)} name='difficulty' value={input.difficulty}>
+                            <option hidden >Select difficulty</option>
+                            <option value={1}> Easy </option>
+                            <option value={2}> Normal </option>
+                            <option value={3}> Medium </option>
+                            <option value={4}> Hard </option>
+                            <option value={5}> Very Hard </option>
                         </select>
                         {error.name && (
                             <p>{error.name}</p>
                         )}
                     </div>
                     <div>
-                        <label>Duración en minutos</label>
-                        <input type='number' min='10' max='300' value={input.duration} onChange={(e) => handleChange(e)} name='duration' placeholder='Tiempo...'/>
+                        <label id="label3">Duration in minutes: </label>
+                        <input id="durationAct" type='number' min='10' max='300' value={input.duration} onChange={(e) => handleChange(e)} name='duration' placeholder='Duration...'/>
                         {error.name && (
                             <p>{error.name}</p>
                         )}
                     </div>
                     <div>
-                        <label>Temporada:</label>
+                        <label className="label4">Season: </label>
                         <div>
-                            <label><input type='checkbox' name='Verano' value='Summer' onChange={e => handleCheck(e)}/> Summer </label>
-                            <label><input type='checkbox' name='Otoño' value='Autumn' onChange={e => handleCheck(e)}/> Autumn </label>
-                            <label><input type='checkbox' name='Invierno' value= 'Winter' onChange={e => handleCheck(e)}/> Winter </label>
-                            <label><input type='checkbox' name='Primavera' value='Spring' onChange={e => handleCheck(e)}/> Spring </label>
+                            <label id="verano"><input type='checkbox' name='Verano' value='Summer' onChange={e => handleCheck(e)}/>  Summer </label>
+                            <label id="otoño"><input type='checkbox' name='Otoño' value='Autumn' onChange={e => handleCheck(e)}/>  Autumn </label>
+                            <label id="invierno"><input type='checkbox' name='Invierno' value= 'Winter' onChange={e => handleCheck(e)}/> Winter </label>
+                            <label id="primavera"><input type='checkbox' name='Primavera' value='Spring' onChange={e => handleCheck(e)}/> Spring </label>
                             {error.name && (
                                 <p>{error.name}</p>
                             )}
                         </div>
                     </div>
                     <div>
-                        <label>Paises</label>
-                        <select name='countries' onChange={e => handleSelect(e)}>
-                            <option hidden >Seleccionar País</option>
+                        <label id="label5">Countries: </label>
+                        <select className="selectCountry" name='countries' onChange={e => handleSelect(e)}>
+                            <option hidden >Select Country</option>
                             {
                                 countries.map((country) => (
                                     <option key={country.id3} value={country.id3}>{country.name}</option>
@@ -146,13 +146,13 @@ export default function CreateActivity(){
                         <div>
                             {input.idCountry.map((el)=> 
                             <div key={el.id3}>
-                                <h4>{el}</h4>
-                                <button type='button' onClick={() => handleDelete(el)}>X</button>
+                                <h4 className="idpais">{el}</h4>
+                                <button className="btnX" type='button' onClick={() => handleDelete(el)}>X</button>
                             </div>    
                                 )}
                         </div>
                     </div>
-                    <input type='submit' value='Submit' 
+                    <input className="submitAct" type='submit' value='CREATE' 
                     disabled={
                         !input.name ||
                         !input.difficulty ||
@@ -163,7 +163,7 @@ export default function CreateActivity(){
                 </form>
                 <div>
                     <Link to='/home'>
-                        <button>Volver</button>
+                        <button className="btnBack">BACK</button>
                     </Link>
                 </div>
             </div>

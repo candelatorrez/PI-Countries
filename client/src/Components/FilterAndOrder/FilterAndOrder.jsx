@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 //import {Link} from "react-router-dom";
 import {orderByName, orderByPopulation, filterActivity, filterContinent, getActivities, getCountries } from "../../Redux/Actions/index.js";
 import {connect} from "react-redux";
-
+import './FilterAndOrder.css';
 import { ORDER_NAME_ASC, ORDER_NAME_DES, ORDER_HAB_ASC, ORDER_HAB_DES } from "../../Redux/Actions/constants.js";
 
 function FilterAndOrder(props){
@@ -34,15 +34,17 @@ function FilterAndOrder(props){
 
 
     return (
-        <div className="container">
+        <div className="containerFilter">
             <div>
                 <select className="select" onChange={(e) => handleDispatchOrder(e)}>
                     <option hidden>Order by name</option>
+                    <option value=''>Default</option>
                     <option value={ORDER_NAME_ASC}> A - Z </option>
                     <option value={ORDER_NAME_DES}> Z - A </option>
                 </select>
                 <select className="select2" onChange={(e) => handleDispatchPopulation(e)}>
                     <option hidden>Order by population</option>
+                    <option value="AllHab">Default</option>
                     <option value={ORDER_HAB_ASC}> Largest </option>
                     <option value={ORDER_HAB_DES}> Lowest </option>
                 </select>
