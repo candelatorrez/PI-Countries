@@ -105,5 +105,20 @@ router.get('/:idCountry', async(req, res)=>{
       }
  })
 
+ router.put('/:idCountry', async(req, res) => {
+    try {
+        let {idCountry} = req.params;
+        const body = req.body;
+        let response = await Country.update(body, ({
+            where: {
+                id3: idCountry
+            }
+        }))
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
+ })
+
 
 module.exports = router; 
